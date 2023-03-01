@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>CRM-STAR</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="students.js" defer></script>
+</head>
+<body>
+<h1>Ученики</h1>
+<nav class = "navigation_bar">
+    <ul class = "references_list">
+        <li class = "reference" id="ref_main"><a href="index.html">Главное меню</a></li>
+        <li class = "reference" id="ref_students"><a href="students.html">Ученики</a></li>
+        <li class = "reference" id="ref_calendar"><a href="calendar.html">Календарь</a></li>
+        <li class = "reference" id="ref_finance"><a href="finances.html">Финансы</a></li>
+    </ul>
+</nav>
+
+<section class="data_base_view" id="data_base">
+    <form class="search_fields">
+        <input class="input_name" type="text" name="name" id="search_name" placeholder="Имя"/>
+        <input class="input_course" type="text" name="course" id="search_course" placeholder="Курс"/>
+        <input class="input_age" type="number" name="age" id="search_age" placeholder="Возраст"/>
+        <input type="submit" value="Найти" id="find_btn"/>
+    </form>
+    <form class="sort_fields">
+        <label>Имя:</label>
+        <input type="checkbox" name="name" id="sort_name"/>
+        <label>Курс:</label>
+        <input type="checkbox" name="course" id="sort_course"/>
+        <label>Возраст:</label>
+        <input type="checkbox" name="age" id="sort_age"/>
+        <input type="submit" value="Сортировать" id="sort_btn"/>
+    </form>
+
+    <table>
+        <tr>
+            <th>Имя</th>
+            <th>Возраст</th>
+            <th>Курс</th>
+        </tr>
+        <tr>
+            <td>Руслан Апушкин</td>
+            <td>14</td>
+            <td>Хореография</td>
+        </tr>
+        <tr>
+            <td>Алина Дружкова</td>
+            <td>12</td>
+            <td>Психология</td>
+        </tr>
+    </table>
+</section>
+
+</body>
+</html>
