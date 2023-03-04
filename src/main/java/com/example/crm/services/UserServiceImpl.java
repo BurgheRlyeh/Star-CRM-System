@@ -8,7 +8,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+/**
+ * Реализация сервиса обслуживания для операций с базой данных.
+ * Данную реализацию можно использовать в контроллере. Данную
+ * реализацию можно расширять (через интерфейс UserService).
+ */
+
+@Service("userService")
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
