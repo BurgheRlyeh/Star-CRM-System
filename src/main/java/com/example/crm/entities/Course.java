@@ -12,7 +12,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 public class Course implements Serializable {
     private Long id;
     private String course;
-    private Set<User> users = new HashSet<>();
+    //private Set<User> users = new HashSet<>();
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -34,16 +34,16 @@ public class Course implements Serializable {
         this.course = course;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "users_courses", joinColumns = @JoinColumn(name = "COURSE_ID"),
-            inverseJoinColumns = @JoinColumn(name = "USER_ID"))
-    public Set<User> getUsers() {
-        return users;
-    }
+    //@ManyToMany(fetch = FetchType.EAGER)
+    //@JoinTable(name = "users_courses", joinColumns = @JoinColumn(name = "COURSE_ID"),
+    //        inverseJoinColumns = @JoinColumn(name = "USER_ID"))
+    //public Set<User> getUsers() {
+    //    return users;
+    //}
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
+    //public void setUsers(Set<User> users) {
+     //   this.users = users;
+    //}
 
     @Override
     public String toString() {

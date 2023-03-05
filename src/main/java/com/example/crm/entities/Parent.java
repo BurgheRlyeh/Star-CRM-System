@@ -11,7 +11,7 @@ public class Parent implements Serializable {
     private Long id;
     private String name;
     private String phone;
-    private Set<User> users = new HashSet<>();
+    //private Set<User> users = new HashSet<>();
 
     @Id
     @Column(name = "ID")
@@ -42,14 +42,14 @@ public class Parent implements Serializable {
         this.phone = phone;
     }
 
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
-    public Set<User> getUsers() {
-        return users;
-    }
+    //@OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+    //public Set<User> getUsers() {
+    //    return users;
+    //}
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
+    //public void setUsers(Set<User> users) {
+    //    this.users = users;
+    //}
 
     @Override
     public String toString() {

@@ -12,7 +12,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 public class ActiveStatus implements Serializable {
     private Long id;
     private String status;
-    private Set<User> users = new HashSet<>();
+    //private Set<User> users = new HashSet<>();
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -34,14 +34,14 @@ public class ActiveStatus implements Serializable {
         this.status = status;
     }
 
-    @OneToMany(mappedBy = "activeStatus", cascade = CascadeType.ALL)
-    public Set<User> getUsers() {
-        return users;
-    }
+    //@OneToMany(mappedBy = "activeStatus", cascade = CascadeType.ALL)
+    //public Set<User> getUsers() {
+    //    return users;
+    //}
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
+    //public void setUsers(Set<User> users) {
+    //    this.users = users;
+    //}
 
     @Override
     public String toString() {

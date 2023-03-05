@@ -22,6 +22,7 @@ public class CrmProjectApplication {
         assert (ctx != null);
         logger.info("Application started...");
 
+        //Пример работы с сервисом:
         UserService service = ctx.getBean(UserService.class);
         listAllUsers(service.findByName("Коля"));
 
