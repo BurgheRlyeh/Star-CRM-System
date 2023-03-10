@@ -11,12 +11,11 @@ import java.util.List;
 /**
  * Реализация сервиса обслуживания для операций с базой данных.
  * Данную реализацию можно использовать в контроллере. Данную
- * реализацию можно расширять (через интерфейс UserService).
+ * реализацию можно расширять (дополняя интерфейс UserService).
  */
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
-
     private UserRepository userRepository;
 
     @Override
@@ -25,13 +24,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> findByName(String name) {
-        return Lists.newArrayList(userRepository.findByName(name));
+    public User findById(Long id) {
+        return userRepository.findById(id).get();
     }
 
     @Override
-    public User findById(Long id) {
-        return userRepository.findById(id).get();
+    public void delete(Long id) {
+        User user = findById(id);
+        userRepository.delete(user);
+    }
+
+    @Override
+    public User save(User user) {
+        return userRepository.save(user);
     }
 
     @Autowired

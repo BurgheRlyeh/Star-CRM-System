@@ -100,7 +100,7 @@ public class User implements Serializable {
     }
 
     @ManyToOne
-    @JoinColumn(name = "ACTIVE_STATUS")
+    @JoinColumn(name = "ACTIVE_STATUS", nullable = false)
     public ActiveStatus getActiveStatus() {
         return activeStatus;
     }

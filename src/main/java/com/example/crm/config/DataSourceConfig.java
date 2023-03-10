@@ -15,7 +15,7 @@ public class DataSourceConfig {
     public DataSource getDataSource() {
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.driverClassName("com.mysql.jdbc.Driver");
-        dataSourceBuilder.url("jdbc:mysql://localhost:3306/scholarbd");
+        dataSourceBuilder.url("jdbc:mysql://localhost:3306/crm");
         dataSourceBuilder.username("axothy");
         dataSourceBuilder.password("springpro5");
         return dataSourceBuilder.build();

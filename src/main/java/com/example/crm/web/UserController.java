@@ -7,10 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,10 +31,27 @@ public class UserController {
         return new Users(userService.findAll());
     }
 
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping(value = "/{name}")
-    public List<User> findByName(String name) {
-        return userService.findByName(name);
+    @GetMapping(value ="/{id}")
+    public User findById(@PathVariable Long id) {
+        return userService.findById(id);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping(value = "/{id}")
+    public void delete(@PathVariable Long id) {
+        userService.delete(id);
+    }
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping(value="/")
+    public User create(@RequestBody User user) {
+        userService.save(user);
+        return user;
+    }
+
+    @PutMapping(value = "/{id}")
+    public void update(@RequestBody User user, @PathVariable Long id) {
+        userService.save(user);
     }
 
     @Autowired

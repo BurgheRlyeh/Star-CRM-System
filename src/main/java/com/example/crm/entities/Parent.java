@@ -2,8 +2,6 @@ package com.example.crm.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "parents")
@@ -11,7 +9,6 @@ public class Parent implements Serializable {
     private Long id;
     private String name;
     private String phone;
-    //private Set<User> users = new HashSet<>();
 
     @Id
     @Column(name = "ID")
@@ -41,15 +38,6 @@ public class Parent implements Serializable {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-    //@OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
-    //public Set<User> getUsers() {
-    //    return users;
-    //}
-
-    //public void setUsers(Set<User> users) {
-    //    this.users = users;
-    //}
 
     @Override
     public String toString() {
