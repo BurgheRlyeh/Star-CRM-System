@@ -6,8 +6,11 @@ import com.example.crm.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -23,6 +26,7 @@ public class UserController {
 
     /**
      * Аннотация @GetMapping - аналог @RequestMapping с методом получения GET
+     *
      * @return List of all users in DB
      */
     @ResponseStatus(HttpStatus.OK)
@@ -31,9 +35,19 @@ public class UserController {
         return new Users(userService.findAll());
     }
 
-    @GetMapping(value ="/{id}")
+    @GetMapping(value = "/{id}")
     public User findById(@PathVariable Long id) {
         return userService.findById(id);
+    }
+
+    @GetMapping(value = "/list", params = {"page", "size"})
+    public List<User> listUsersPaginated(@RequestParam("page") int page, @RequestParam("size") int size) {
+        Page<User> users = userService.findAll(page, size);
+
+        if (page > users.getTotalPages()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Unable to found page " + page);
+        }
+        return users.getContent();
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -43,7 +57,7 @@ public class UserController {
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping(value="/")
+    @PostMapping(value = "/")
     public User create(@RequestBody User user) {
         userService.save(user);
         return user;

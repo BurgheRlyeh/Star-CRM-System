@@ -2,6 +2,9 @@ package com.example.crm.services;
 
 import com.example.crm.entities.Course;
 import com.example.crm.entities.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import java.util.List;
 
 /**
@@ -16,4 +19,6 @@ public interface UserService {
     List<User> findAll();
     void delete(Long id);
     User save(User user);
+    Page<User> findByName(String name, int page, int size);
+    Page<User> findAll(int page, int size);
 }
