@@ -6,7 +6,7 @@ import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -50,6 +50,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public Page<User> findAll(int page, int size) {
         return userRepository.findAll(PageRequest.of(page, size));
+    }
+
+    @Override
+    public Page<User> findAll(int page, int size, String attribute) {
+        return userRepository.findAll(PageRequest.of(page, size, Sort.by(attribute)));
     }
 
     @Autowired

@@ -21,4 +21,5 @@ public interface UserService {
     User save(User user);
     Page<User> findByName(String name, int page, int size);
     Page<User> findAll(int page, int size);
+    Page<User> findAll(int page, int size, String attribute);
 }
