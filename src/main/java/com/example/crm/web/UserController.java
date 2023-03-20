@@ -8,14 +8,19 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.security.Principal;
 import java.util.List;
 
 /**
  * Аннотация @RestController предписывает Spring распознать
- * данный класс как бин контроллера Spring MVC
+ * данный класс как бин контроллера Spring MVC.
+ * С помощью аннотации @RequestMapping указываем адрес контроллера,
+ * по которому он будет доступен клиенту (нашему фронту).
  */
 @RestController
 @RequestMapping(value = "/user")
@@ -23,17 +28,27 @@ public class UserController {
     private final Logger logger = LoggerFactory.getLogger(UserController.class);
     private UserService userService;
 
+
+    @GetMapping(path = "/test_principal_name")
+    @PreAuthorize("hasAuthority('READ')")
+    public String test(Principal principal) {
+        return principal.getName();
+    }
+
     /**
-     * Аннотация @GetMapping - аналог @RequestMapping с методом получения GET
-     *
+     * С помощью аннотации @GetMapping указывается адрес данного ресурса, а также параметры
      * @return List of all users in DB
      */
-    @ResponseStatus(HttpStatus.OK)
     @GetMapping(value = "/list")
-    public Users listUsers() {
+    public /*@ResponseBody*/ Users listUsers() {
         return new Users(userService.findAll());
     }
 
+    /**
+     * Аннотация @PathVariable преобразовывает атрибут id типа String URL-запроса в Long
+     * @param id
+     * @return User
+     */
     @GetMapping(value = "/{id}")
     public User findById(@PathVariable Long id) {
         return userService.findById(id);
