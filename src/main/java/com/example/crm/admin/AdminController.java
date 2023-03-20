@@ -14,7 +14,7 @@ public class AdminController {
     private final UserManagementService userManagementService;
 
     @Secured("ROLE_ANONYMOUS")
-    @PostMapping(path = "/user-claims/{uuid}")
+    @PostMapping(path = "/user-claims/{uid}")
     public void setUserClaims(
             @PathVariable String uid,
             @RequestBody List<Permission> requestedClaims
