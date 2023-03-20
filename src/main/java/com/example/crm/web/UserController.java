@@ -40,6 +40,7 @@ public class UserController {
      * @return List of all users in DB
      */
     @GetMapping(value = "/list")
+    @PreAuthorize("hasAuthority('READ')")
     public /*@ResponseBody*/ Users listUsers() {
         return new Users(userService.findAll());
     }
