@@ -3,7 +3,7 @@ spring:
     name: scholarservice
 
   profiles:
-    active: prod
+    active: dev
 
   config:
-    import: configserver:http://localhost:8071
+    import: configserver:http://95.163.235.242:8071
