@@ -13,12 +13,13 @@ public class User implements Serializable {
     private String name;
     private Date birthDate;
     private String phone;
+    private int hoursCount;
     private Parent parent;
     private String source;
     private String characteristic;
     private Set<Course> courses = new HashSet<>();
     private ActiveStatus activeStatus;
-    private Set<PaymentStatus> paymentStatuses;
+    private PaymentStatus paymentStatus;
 
     @Id
     @Column(name = "ID")
@@ -53,6 +54,15 @@ public class User implements Serializable {
     @Column(name = "PHONE")
     public String getPhone() {
         return phone;
+    }
+
+    @Column(name = "HOURS_COUNT")
+    public int getHoursCount() {
+        return hoursCount;
+    }
+
+    public void setHoursCount(int hoursCount) {
+        this.hoursCount = hoursCount;
     }
 
     public void setPhone(String phone) {
@@ -109,15 +119,14 @@ public class User implements Serializable {
         this.activeStatus = activeStatus;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "users_courses", joinColumns = @JoinColumn(name = "USER_ID"),
-            inverseJoinColumns = @JoinColumn(name = "PAYMENT_STATUS"))
-    public Set<PaymentStatus> getPaymentStatuses() {
-        return paymentStatuses;
+    @ManyToOne
+    @JoinColumn(name = "PAYMENT_STATUS", nullable = false)
+    public PaymentStatus getPaymentStatus() {
+        return paymentStatus;
     }
 
-    public void setPaymentStatuses(Set<PaymentStatus> paymentStatuses) {
-        this.paymentStatuses = paymentStatuses;
+    public void setPaymentStatus(PaymentStatus paymentStatus) {
+        this.paymentStatus = paymentStatus;
     }
 
     @Override

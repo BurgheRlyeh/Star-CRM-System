@@ -8,53 +8,40 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.security.Principal;
 import java.util.List;
 
-/**
- * Аннотация @RestController предписывает Spring распознать
- * данный класс как бин контроллера Spring MVC.
- * С помощью аннотации @RequestMapping указываем адрес контроллера,
- * по которому он будет доступен клиенту (нашему фронту).
- */
 @RestController
-@RequestMapping(value = "/user")
+@RequestMapping(value = "/crmstarsystem/user")
 public class UserController {
     private final Logger logger = LoggerFactory.getLogger(UserController.class);
+
+    @Autowired
     private UserService userService;
 
-
-    @GetMapping(path = "/test_principal_name")
-    @PreAuthorize("hasAuthority('READ')")
-    public String test(Principal principal) {
-        return principal.getName();
-    }
-
-    /**
-     * С помощью аннотации @GetMapping указывается адрес данного ресурса, а также параметры
-     * @return List of all users in DB
-     */
-    @GetMapping(value = "/list")
-    @PreAuthorize("hasAuthority('READ')")
-    public /*@ResponseBody*/ Users listUsers() {
+    @GetMapping(value = "/test")
+    public Users test() {
         return new Users(userService.findAll());
     }
 
-    /**
-     * Аннотация @PathVariable преобразовывает атрибут id типа String URL-запроса в Long
-     * @param id
-     * @return User
-     */
+    @GetMapping(value = "/list")
+    @PreAuthorize("hasAuthority('READ')")
+    public Users listAllUsers() {
+        return new Users(userService.findAll());
+    }
+
     @GetMapping(value = "/{id}")
-    public User findById(@PathVariable Long id) {
-        return userService.findById(id);
+    @PreAuthorize("hasAuthority('READ')")
+    public ResponseEntity<User> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(userService.findById(id));
     }
 
     @GetMapping(value = "/list", params = {"page", "size"})
+    @PreAuthorize("hasAuthority('READ')")
     public List<User> listUsersPaginated(@RequestParam("page") int page, @RequestParam("size") int size) {
         Page<User> users = userService.findAll(page, size);
 
@@ -65,6 +52,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/list", params = {"page", "size", "attribute"})
+    @PreAuthorize("hasAuthority('READ')")
     public List<User> listUsersSorted(@RequestParam("page") int page, @RequestParam("size") int size,
                                       @RequestParam("attribute") String attribute) {
         Page<User> users = userService.findAll(page, size, attribute);
@@ -78,24 +66,23 @@ public class UserController {
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping(value = "/{id}")
+    @PreAuthorize("hasAuthority('WRITE')")
     public void delete(@PathVariable Long id) {
         userService.delete(id);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "/")
+    @PreAuthorize("hasAuthority('WRITE')")
     public User create(@RequestBody User user) {
         userService.save(user);
         return user;
     }
 
     @PutMapping(value = "/{id}")
+    @PreAuthorize("hasAuthority('WRITE')")
     public void update(@RequestBody User user, @PathVariable Long id) {
         userService.save(user);
     }
 
-    @Autowired
-    public void setUserService(UserService service) {
-        this.userService = service;
-    }
 }

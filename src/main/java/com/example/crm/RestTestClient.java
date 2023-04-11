@@ -97,10 +97,8 @@ public class RestTestClient {
                 logger.info("\t" + scholar.getActiveStatus().toString());
             }
 
-            if (scholar.getPaymentStatuses() != null) {
-                for (PaymentStatus status : scholar.getPaymentStatuses()) {
-                    logger.info("\t" + status.toString());
-                }
+            if (scholar.getPaymentStatus() != null) {
+                logger.info("\t" + scholar.getActiveStatus().toString());
             }
 
             if (scholar.getCourses() != null) {

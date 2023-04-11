@@ -2,7 +2,7 @@ package com.example.crm.admin;
 
 import com.google.firebase.auth.FirebaseAuthException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
 public class AdminController {
     private final UserManagementService userManagementService;
 
-    @Secured("ROLE_ANONYMOUS")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping(path = "/user-claims/{uid}")
     public void setUserClaims(
             @PathVariable String uid,

@@ -2,5 +2,6 @@ package com.example.crm.admin;
 
 public enum Permission {
     READ,
-    WRITE
+    WRITE,
+    ADMIN
 }

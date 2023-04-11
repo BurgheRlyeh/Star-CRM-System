@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: scholarservice
+
+  profiles:
+    active: prod
+
+  config:
+    import: configserver:http://localhost:8071
